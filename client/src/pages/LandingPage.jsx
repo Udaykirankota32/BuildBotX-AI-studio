@@ -1,17 +1,21 @@
 import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import FeatureCard from '../components/FeatureCard.jsx';
+import PricingSection from '../components/PricingSection.jsx';
+import ProfileDrawer from '../components/ProfileDrawer.jsx';
 import { AuthContext } from '../context/AuthContext.jsx';
 import { ToastContext } from '../context/ToastContext.jsx';
 import { createProject } from '../services/projectService.js';
 import { logout as logoutAPI } from '../services/authService.js';
 import '../styles/landing.css';
+import '../styles/pricing.css';
 
 function LandingPage() {
   const navigate = useNavigate();
   const { user, logout } = useContext(AuthContext);
   const { showToast } = useContext(ToastContext);
   const [prompt, setPrompt] = useState('');
+  const [drawerOpen, setDrawerOpen] = useState(false);
 
   const handleStartBuilding = async () => {
     const trimmed = prompt.trim();
@@ -44,6 +48,7 @@ function LandingPage() {
     try {
       await logoutAPI();
     } finally {
+      setDrawerOpen(false);
       logout();
       showToast('Logged out successfully', 'success');
     }
@@ -63,13 +68,10 @@ function LandingPage() {
         </span>
         {user ? (
           <div className="landing-user">
-            <div className="landing-avatar">
+            <button className="landing-avatar" onClick={() => setDrawerOpen(true)}>
               {user.name?.charAt(0)?.toUpperCase() || 'U'}
-            </div>
-            <span className="landing-user-name">{user.name}</span>
-            <button onClick={handleLogout} className="landing-logout-btn">
-              Logout
             </button>
+            <span className="landing-user-name">{user.name}</span>
           </div>
         ) : (
           <div className="landing-auth-actions">
@@ -82,6 +84,13 @@ function LandingPage() {
           </div>
         )}
       </nav>
+
+      <ProfileDrawer
+        isOpen={drawerOpen}
+        user={user}
+        onClose={() => setDrawerOpen(false)}
+        onLogout={handleLogout}
+      />
 
       <section className="landing-hero">
         <div className="landing-hero-content">
@@ -150,6 +159,8 @@ function LandingPage() {
           />
         </div>
       </section>
+
+      <PricingSection />
 
       <footer className="landing-footer">
         <div className="landing-footer-content">

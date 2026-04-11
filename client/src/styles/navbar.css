@@ -74,6 +74,12 @@
   justify-content: center;
   font-size: 14px;
   font-weight: 700;
+  border: 1px solid rgba(201, 162, 39, 0.4);
+}
+
+.navbar-user-badge:hover {
+  border-color: #e3bc42;
+  transform: translateY(-1px);
 }
 
 .navbar-username {

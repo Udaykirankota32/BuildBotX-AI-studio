@@ -1,8 +1,9 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext.jsx';
 import { ToastContext } from '../context/ToastContext.jsx';
 import { logout as logoutAPI } from '../services/authService.js';
+import ProfileDrawer from './ProfileDrawer.jsx';
 import '../styles/navbar.css';
 
 function Navbar() {
@@ -10,10 +11,12 @@ function Navbar() {
   const { showToast } = useContext(ToastContext);
   const navigate = useNavigate();
   const location = useLocation();
+  const [drawerOpen, setDrawerOpen] = useState(false);
 
   const handleLogout = async () => {
     try {
       await logoutAPI();
+      setDrawerOpen(false);
       logout();
       showToast('Logged out successfully', 'success');
       navigate('/');
@@ -46,14 +49,18 @@ function Navbar() {
       </div>
 
       <div className="navbar-right">
-        <div className="navbar-user-badge">
+        <button className="navbar-user-badge" onClick={() => setDrawerOpen(true)}>
           {user?.name?.charAt(0).toUpperCase()}
-        </div>
-        <span className="navbar-username">{user?.name}</span>
-        <button onClick={handleLogout} className="navbar-logout">
-          Logout
         </button>
+        <span className="navbar-username">{user?.name}</span>
       </div>
+
+      <ProfileDrawer
+        isOpen={drawerOpen}
+        user={user}
+        onClose={() => setDrawerOpen(false)}
+        onLogout={handleLogout}
+      />
     </nav>
   );
 }

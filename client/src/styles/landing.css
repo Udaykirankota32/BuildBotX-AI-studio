@@ -126,6 +126,12 @@
   border: 1px solid rgba(201, 162, 39, 0.45);
   color: #f9ebc2;
   font-weight: 700;
+  cursor: pointer;
+}
+
+.landing-avatar:hover {
+  border-color: #e3bc42;
+  transform: translateY(-1px);
 }
 
 .landing-user-name {
@@ -376,6 +382,21 @@
 @media (max-width: 768px) {
   .landing-nav {
     padding: 14px 20px;
+  }
+
+  .landing-user-name {
+    display: none;
+  }
+
+  .landing-auth-actions {
+    gap: 6px;
+  }
+
+  .landing-nav-login-btn,
+  .landing-nav-signup-btn,
+  .landing-logout-btn {
+    padding: 7px 10px;
+    font-size: 12px;
   }
 
   .landing-hero {
