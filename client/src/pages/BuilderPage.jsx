@@ -112,38 +112,30 @@ function BuilderPage() {
   }
 
   return (
-    <div className="builder-page">
-      <div className="builder-header">
-        <input
-          type="text"
-          value={project.title}
-          onChange={(e) => handleTitleChange(e.target.value)}
-          className="builder-title-input"
-        />
-        <button onClick={handleDownload} className="builder-download-btn">
-          ⬇ Download
-        </button>
-      </div>
-
-      <div className="builder-container">
-        {/* Left Panel - Chat */}
-        <div className="builder-left">
+    <div className="builder">
+      <div className="builder-chat">
           <div className="builder-chat-header">
-            <h2>Chat</h2>
+            <input
+              type="text"
+              value={project.title}
+              onChange={(e) => handleTitleChange(e.target.value)}
+              className="builder-title-input"
+            />
           </div>
 
-          <div className="builder-chat-messages">
+          <div className="builder-messages">
             {project.messages.length === 0 ? (
-              <div className="builder-chat-empty">
-                <p>Start by describing what you want to build</p>
-                <div className="builder-example-chips">
+              <div className="builder-empty-chat">
+                <p className="builder-empty-title">Start Building</p>
+                <p className="builder-empty-subtitle">Describe what you want to build in plain English.</p>
+                <div className="builder-examples">
                   <button
                     onClick={() =>
                       handleSend(
                         'Create a modern landing page with a hero section, features, and a call-to-action button'
                       )
                     }
-                    className="builder-chip"
+                    className="builder-example-chip"
                   >
                     Landing Page
                   </button>
@@ -153,7 +145,7 @@ function BuilderPage() {
                         'Build a portfolio website showcasing projects with a dark theme'
                       )
                     }
-                    className="builder-chip"
+                    className="builder-example-chip"
                   >
                     Portfolio
                   </button>
@@ -161,23 +153,26 @@ function BuilderPage() {
                     onClick={() =>
                       handleSend('Create a to-do list app with add, delete, and mark complete features')
                     }
-                    className="builder-chip"
+                    className="builder-example-chip"
                   >
                     To-Do List
                   </button>
                 </div>
               </div>
             ) : (
-              project.messages.map((msg, idx) => (
-                <ChatMessage key={idx} message={msg} />
-              ))
+              <div className="builder-messages-list">
+                {project.messages.map((msg, idx) => (
+                  <ChatMessage key={idx} message={msg} />
+                ))}
+              </div>
             )}
 
             {generating && (
-              <div className="builder-typing-indicator">
-                <div className="typing-dot" />
-                <div className="typing-dot" />
-                <div className="typing-dot" />
+              <div className="builder-typing">
+                <span className="builder-typing-dot">.</span>
+                <span className="builder-typing-dot">.</span>
+                <span className="builder-typing-dot">.</span>
+                <span className="builder-typing-text">AI is generating...</span>
               </div>
             )}
           </div>
@@ -187,23 +182,29 @@ function BuilderPage() {
             loading={generating}
             disabled={!project}
           />
-        </div>
+      </div>
 
-        {/* Right Panel - Preview/Code */}
-        <div className="builder-right">
+        <div className="builder-preview">
           <div className="builder-tabs">
-            <button
-              className={`builder-tab ${activeTab === 'preview' ? 'active' : ''}`}
-              onClick={() => setActiveTab('preview')}
-            >
-              👁️ Preview
-            </button>
-            <button
-              className={`builder-tab ${activeTab === 'code' ? 'active' : ''}`}
-              onClick={() => setActiveTab('code')}
-            >
-              {'<>'} Code
-            </button>
+            <div className="builder-tabs-left">
+              <button
+                className={`builder-tab ${activeTab === 'preview' ? 'active' : ''}`}
+                onClick={() => setActiveTab('preview')}
+              >
+                Preview
+              </button>
+              <button
+                className={`builder-tab ${activeTab === 'code' ? 'active' : ''}`}
+                onClick={() => setActiveTab('code')}
+              >
+                Code
+              </button>
+            </div>
+            <div className="builder-tabs-right">
+              <button onClick={handleDownload} className="builder-action-btn">
+                Download
+              </button>
+            </div>
           </div>
 
           <div className="builder-content">
@@ -218,7 +219,6 @@ function BuilderPage() {
             )}
           </div>
         </div>
-      </div>
     </div>
   );
 }

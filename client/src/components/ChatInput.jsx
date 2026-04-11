@@ -30,7 +30,7 @@ function ChatInput({ onSend, loading, disabled }) {
       <button
         onClick={handleSubmit}
         disabled={!input.trim() || loading || disabled}
-        className="chat-input-button"
+        className="chat-send-btn"
       >
         {loading ? 'Generating...' : 'Send'}
       </button>

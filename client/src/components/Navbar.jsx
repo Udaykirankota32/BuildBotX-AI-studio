@@ -45,12 +45,12 @@ function Navbar() {
         </Link>
       </div>
 
-      <div className="navbar-user">
-        <div className="navbar-avatar">
+      <div className="navbar-right">
+        <div className="navbar-user-badge">
           {user?.name?.charAt(0).toUpperCase()}
         </div>
         <span className="navbar-username">{user?.name}</span>
-        <button onClick={handleLogout} className="navbar-logout-btn">
+        <button onClick={handleLogout} className="navbar-logout">
           Logout
         </button>
       </div>

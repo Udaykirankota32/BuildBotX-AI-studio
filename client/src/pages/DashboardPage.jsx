@@ -64,7 +64,7 @@ function DashboardPage() {
   }
 
   return (
-    <div className="dashboard-page">
+    <div className="dashboard">
       <div className="dashboard-header">
         <h1 className="dashboard-title">My Projects</h1>
         <button onClick={handleNewProject} className="dashboard-new-btn">
@@ -85,10 +85,10 @@ function DashboardPage() {
 
       {projects.length === 0 && (
         <div className="dashboard-empty">
-          <p className="dashboard-empty-text">
+          <p className="dashboard-empty-subtitle">
             No projects yet. Create one to get started!
           </p>
-          <button onClick={handleNewProject} className="dashboard-empty-btn">
+          <button onClick={handleNewProject} className="dashboard-new-btn">
             Create First Project
           </button>
         </div>

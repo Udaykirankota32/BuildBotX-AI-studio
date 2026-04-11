@@ -20,17 +20,17 @@ function ProjectCard({ project, onOpen, onDelete }) {
       <div className="project-card-preview">
         {project.generatedCode ? (
           <iframe
-            sandBox=""
+            sandbox=""
             srcDoc={project.generatedCode}
             title={project.title}
             className="project-card-iframe"
           />
         ) : (
-          <div className="project-card-empty">No preview yet</div>
+          <div className="project-card-empty-preview">No preview yet</div>
         )}
       </div>
 
-      <div className="project-card-content">
+      <div className="project-card-info">
         <h3 className="project-card-title">{project.title}</h3>
         <p className="project-card-date">
           Updated {formatDate(project.updatedAt)}
@@ -39,13 +39,13 @@ function ProjectCard({ project, onOpen, onDelete }) {
         <div className="project-card-actions">
           <button
             onClick={() => onOpen(project._id)}
-            className="project-card-open-btn"
+            className="project-card-open"
           >
             Open
           </button>
           <button
             onClick={() => onDelete(project._id)}
-            className="project-card-delete-btn"
+            className="project-card-delete"
           >
             Delete
           </button>

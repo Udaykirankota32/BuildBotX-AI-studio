@@ -12,11 +12,11 @@ function ChatMessage({ message }) {
   };
 
   return (
-    <div className={`chat-message ${isUser ? 'chat-message-user' : 'chat-message-assistant'}`}>
-      <div className="chat-message-bubble">
-        {message.content}
+    <div className={`chat-message ${isUser ? 'chat-message-user' : 'chat-message-ai'}`}>
+      <div className={`chat-bubble ${isUser ? 'chat-bubble-user' : 'chat-bubble-ai'}`}>
+        <p className="chat-bubble-text">{message.content}</p>
       </div>
-      <div className="chat-message-time">
+      <div className="chat-timestamp">
         {formatTime(message.timestamp)}
       </div>
     </div>

@@ -17,31 +17,55 @@ function LandingPage() {
           </svg>
           BuildBot X
         </span>
-        <button onClick={() => navigate('/login')} className="landing-nav-btn">
+        <button onClick={() => navigate('/login')} className="landing-nav-cta">
           Get Started
         </button>
       </nav>
 
       <section className="landing-hero">
-        <h1 className="landing-title">Build Amazing Web Apps Instantly</h1>
-        <p className="landing-subtitle">
-          Describe what you want. AI builds it. You own the code.
-        </p>
-        <button onClick={() => navigate('/login')} className="landing-cta-btn">
-          Start Building Now
-        </button>
-
-        <div className="landing-prompt-box">
-          <div className="landing-prompt-label">Try it:</div>
-          <p className="landing-prompt-text">
-            "Create a modern portfolio site with my projects, dark theme, and
-            smooth animations"
+        <div className="landing-hero-content">
+          <span className="landing-badge">BuildBot X ai studio</span>
+          <h1 className="landing-hero-title">
+            Build Beautiful Apps
+            <span className="landing-hero-accent"> From a Single Prompt</span>
+          </h1>
+          <p className="landing-hero-subtitle">
+            Describe your idea in plain English. Generate complete HTML, CSS, and JavaScript instantly, then refine through chat.
           </p>
+
+          <div className="landing-prompt-box">
+            <div className="landing-prompt-input">
+              "Create a modern portfolio site with project cards, a contact form, and subtle motion"
+            </div>
+            <button onClick={() => navigate('/login')} className="landing-prompt-btn">
+              Generate App
+            </button>
+          </div>
+
+          <div className="landing-stats">
+            <div className="landing-stat">
+              <span className="landing-stat-number">1 Prompt</span>
+              <span className="landing-stat-label">To First Version</span>
+            </div>
+            <div className="landing-stat-divider" />
+            <div className="landing-stat">
+              <span className="landing-stat-number">Live</span>
+              <span className="landing-stat-label">Preview + Code</span>
+            </div>
+            <div className="landing-stat-divider" />
+            <div className="landing-stat">
+              <span className="landing-stat-number">100%</span>
+              <span className="landing-stat-label">Code Ownership</span>
+            </div>
+          </div>
         </div>
       </section>
 
       <section className="landing-features">
-        <h2 className="landing-features-title">How It Works</h2>
+        <h2 className="landing-section-title">How It Works</h2>
+        <p className="landing-section-subtitle">
+          Turn idea to app in three focused steps.
+        </p>
         <div className="landing-features-grid">
           <FeatureCard
             icon="✎"
@@ -62,7 +86,12 @@ function LandingPage() {
       </section>
 
       <footer className="landing-footer">
-        <p>&copy; 2026 BuildBot X ai studio. Transform your ideas into code.</p>
+        <div className="landing-footer-content">
+          <div className="landing-footer-logo">BuildBot X ai studio</div>
+          <p className="landing-footer-text">
+            &copy; 2026 BuildBot X ai studio. Transform ideas into working code.
+          </p>
+        </div>
       </footer>
     </div>
   );
