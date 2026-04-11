@@ -2,15 +2,16 @@ import { useState, useContext } from 'react';
 import { useNavigate, Navigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext.jsx';
 import { ToastContext } from '../context/ToastContext.jsx';
-import { register, emailLogin } from '../services/authService.js';
+import { register, emailLogin, validateEmail } from '../services/authService.js';
+import { createProject } from '../services/projectService.js';
 import '../styles/login.css';
 
-function LoginPage() {
+function LoginPage({ initialSignUp = false }) {
   const { user, login } = useContext(AuthContext);
   const { showToast } = useContext(ToastContext);
   const navigate = useNavigate();
 
-  const [isSignUp, setIsSignUp] = useState(false);
+  const [isSignUp, setIsSignUp] = useState(initialSignUp);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -18,7 +19,7 @@ function LoginPage() {
   });
   const [loading, setLoading] = useState(false);
 
-  if (user) return <Navigate to="/dashboard" />;
+  if (user) return <Navigate to="/" />;
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -27,15 +28,26 @@ function LoginPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!validateEmail(formData.email)) {
+      showToast('Please enter a valid email address.', 'error');
+      return;
+    }
+
+    if (formData.password.length < 6) {
+      showToast('Password must be at least 6 characters.', 'error');
+      return;
+    }
+
+    if (isSignUp && !formData.name.trim()) {
+      showToast('Name is required', 'error');
+      return;
+    }
+
     setLoading(true);
 
     try {
       if (isSignUp) {
-        if (!formData.name.trim()) {
-          showToast('Name is required', 'error');
-          setLoading(false);
-          return;
-        }
         const result = await register(
           formData.name,
           formData.email,
@@ -48,7 +60,17 @@ function LoginPage() {
         login(result.token, result.user);
         showToast('Logged in successfully!', 'success');
       }
-      navigate('/dashboard');
+
+      const pendingPrompt = localStorage.getItem('bbx_pending_prompt');
+      if (pendingPrompt) {
+        const project = await createProject('Quick Start Project');
+        localStorage.removeItem('bbx_pending_prompt');
+        navigate(`/builder/${project._id}`, {
+          state: { initialPrompt: pendingPrompt },
+        });
+      } else {
+        navigate('/');
+      }
     } catch (error) {
       showToast(
         error.response?.data?.message || 'Something went wrong',

@@ -1,9 +1,53 @@
+import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import FeatureCard from '../components/FeatureCard.jsx';
+import { AuthContext } from '../context/AuthContext.jsx';
+import { ToastContext } from '../context/ToastContext.jsx';
+import { createProject } from '../services/projectService.js';
+import { logout as logoutAPI } from '../services/authService.js';
 import '../styles/landing.css';
 
 function LandingPage() {
   const navigate = useNavigate();
+  const { user, logout } = useContext(AuthContext);
+  const { showToast } = useContext(ToastContext);
+  const [prompt, setPrompt] = useState('');
+
+  const handleStartBuilding = async () => {
+    const trimmed = prompt.trim();
+    if (!trimmed) return;
+
+    if (!user) {
+      localStorage.setItem('bbx_pending_prompt', trimmed);
+      navigate('/login');
+      return;
+    }
+
+    try {
+      const title = trimmed.length > 30 ? `${trimmed.slice(0, 30)}...` : trimmed;
+      const project = await createProject(title);
+      setPrompt('');
+      navigate(`/builder/${project._id}`, { state: { initialPrompt: trimmed } });
+    } catch (error) {
+      showToast('Failed to create project', 'error');
+    }
+  };
+
+  const handlePromptKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      handleStartBuilding();
+    }
+  };
+
+  const handleLogout = async () => {
+    try {
+      await logoutAPI();
+    } finally {
+      logout();
+      showToast('Logged out successfully', 'success');
+    }
+  };
 
   return (
     <div className="landing-page">
@@ -17,9 +61,26 @@ function LandingPage() {
           </svg>
           BuildBot X
         </span>
-        <button onClick={() => navigate('/login')} className="landing-nav-cta">
-          Get Started
-        </button>
+        {user ? (
+          <div className="landing-user">
+            <div className="landing-avatar">
+              {user.name?.charAt(0)?.toUpperCase() || 'U'}
+            </div>
+            <span className="landing-user-name">{user.name}</span>
+            <button onClick={handleLogout} className="landing-logout-btn">
+              Logout
+            </button>
+          </div>
+        ) : (
+          <div className="landing-auth-actions">
+            <button onClick={() => navigate('/login')} className="landing-nav-login-btn">
+              Login
+            </button>
+            <button onClick={() => navigate('/signup')} className="landing-nav-signup-btn">
+              Signup
+            </button>
+          </div>
+        )}
       </nav>
 
       <section className="landing-hero">
@@ -34,10 +95,15 @@ function LandingPage() {
           </p>
 
           <div className="landing-prompt-box">
-            <div className="landing-prompt-input">
-              "Create a modern portfolio site with project cards, a contact form, and subtle motion"
-            </div>
-            <button onClick={() => navigate('/login')} className="landing-prompt-btn">
+            <input
+              type="text"
+              value={prompt}
+              onChange={(e) => setPrompt(e.target.value)}
+              onKeyDown={handlePromptKeyDown}
+              placeholder="Ask AI to build your website..."
+              className="landing-prompt-input"
+            />
+            <button onClick={handleStartBuilding} className="landing-prompt-btn">
               Generate App
             </button>
           </div>

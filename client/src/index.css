@@ -2,6 +2,15 @@
 /* Fonts: Bree Serif (headings) + Roboto (body) */
 @import url("https://fonts.googleapis.com/css2?family=Bree+Serif&family=Roboto:wght@300;400;500;600;700&display=swap");
 
+:root {
+  --bg-deep: #090612;
+  --bg-violet: #2d1b69;
+  --accent-gold: #c9a227;
+  --text-light: #f6f2ff;
+  --card-dark: rgba(255, 255, 255, 0.06);
+  --border-soft: rgba(255, 255, 255, 0.12);
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -11,8 +20,8 @@
 body {
   font-family: "Roboto", sans-serif;
   font-size: 16px;
-  color: #1a1a2e;
-  background: #f8f7ff;
+  color: var(--text-light);
+  background: radial-gradient(circle at top, #35206f 0%, var(--bg-deep) 45%, #05030a 100%);
   line-height: 1.6;
 }
 
@@ -24,6 +33,7 @@ a {
 button {
   cursor: pointer;
   font-family: "Roboto", sans-serif;
+  transition: all 0.25s ease;
 }
 
 #root {
@@ -43,6 +53,7 @@ button {
   display: flex;
   flex-direction: column;
   min-height: 0;
+  background: linear-gradient(135deg, #140d2e 0%, #090612 70%);
 }
 
 /* Loading spinner */
@@ -64,8 +75,15 @@ button {
   width: 36px;
   height: 36px;
   border-radius: 50%;
-  border: 3px solid #e0dff5;
-  border-top-color: #6366f1;
+  border: 3px solid rgba(255, 255, 255, 0.14);
+  border-top-color: var(--accent-gold);
+  animation: spin 0.9s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 /* Toast Notifications */
@@ -85,12 +103,12 @@ button {
 }
 
 .toast-success {
-  background: #059669;
+  background: linear-gradient(135deg, #2f7f5f 0%, #1d5f47 100%);
   color: #ffffff;
 }
 
 .toast-error {
-  background: #dc2626;
+  background: linear-gradient(135deg, #a1233f 0%, #7f1830 100%);
   color: #ffffff;
 }
 

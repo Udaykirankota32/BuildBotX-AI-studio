@@ -1,5 +1,5 @@
-import { useState, useEffect, useContext } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useState, useEffect, useContext, useRef } from 'react';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { ToastContext } from '../context/ToastContext.jsx';
 import ChatMessage from '../components/ChatMessage.jsx';
 import ChatInput from '../components/ChatInput.jsx';
@@ -12,7 +12,9 @@ import '../styles/builder.css';
 function BuilderPage() {
   const { projectId } = useParams();
   const navigate = useNavigate();
+  const location = useLocation();
   const { showToast } = useContext(ToastContext);
+  const initialPromptTriggered = useRef(false);
 
   const [project, setProject] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -102,6 +104,16 @@ function BuilderPage() {
     document.body.removeChild(element);
     showToast('Code downloaded!', 'success');
   };
+
+  useEffect(() => {
+    const initialPrompt = location.state?.initialPrompt;
+    if (!project || !initialPrompt || initialPromptTriggered.current) {
+      return;
+    }
+
+    initialPromptTriggered.current = true;
+    handleSend(initialPrompt);
+  }, [project, location.state]);
 
   if (loading) {
     return (
