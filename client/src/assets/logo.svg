@@ -1,0 +1,13 @@
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <!-- Outer Ring -->
+  <circle cx="50" cy="50" r="45" fill="none" stroke="white" stroke-width="8"/>
+  
+  <!-- Inner Circle (dot) -->
+  <circle cx="73" cy="28" r="8" fill="white"/>
+  
+  <!-- Arrow/Chart upward -->
+  <path d="M 30 65 L 52 35 L 60 50 L 70 35" fill="none" stroke="white" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+  
+  <!-- Vertical bar -->
+  <rect x="65" y="42" width="7" height="25" fill="white" rx="2"/>
+</svg>

@@ -8,7 +8,15 @@ function LandingPage() {
   return (
     <div className="landing-page">
       <nav className="landing-nav">
-        <span className="landing-logo">NxtBuild</span>
+        <span className="landing-logo">
+          <svg className="landing-logo-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="50" cy="50" r="45" fill="none" stroke="white" strokeWidth="8"/>
+            <circle cx="73" cy="28" r="8" fill="white"/>
+            <path d="M 30 65 L 52 35 L 60 50 L 70 35" fill="none" stroke="white" strokeWidth="8" strokeLinecap="round" strokeLinejoin="round"/>
+            <rect x="65" y="42" width="7" height="25" fill="white" rx="2"/>
+          </svg>
+          BuildBot X
+        </span>
         <button onClick={() => navigate('/login')} className="landing-nav-btn">
           Get Started
         </button>
@@ -54,7 +62,7 @@ function LandingPage() {
       </section>
 
       <footer className="landing-footer">
-        <p>&copy; 2026 NxtBuild. Transform your ideas into code.</p>
+        <p>&copy; 2026 BuildBot X ai studio. Transform your ideas into code.</p>
       </footer>
     </div>
   );

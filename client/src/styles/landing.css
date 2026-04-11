@@ -25,6 +25,12 @@
   gap: 8px;
 }
 
+.landing-logo-icon {
+  width: 28px;
+  height: 28px;
+  color: #ffffff;
+}
+
 .landing-logo-mark {
   color: #818cf8;
   font-size: 18px;

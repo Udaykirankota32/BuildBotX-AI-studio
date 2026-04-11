@@ -96,6 +96,12 @@
   border-color: #6366f1;
 }
 
+.navbar-logo-icon {
+  width: 24px;
+  height: 24px;
+  color: #6366f1;
+}
+
 @media (max-width: 600px) {
   .navbar-username {
     display: none;
