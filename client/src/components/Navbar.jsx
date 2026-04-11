@@ -25,6 +25,11 @@ function Navbar() {
     }
   };
 
+  const handleViewPlans = () => {
+    setDrawerOpen(false);
+    navigate('/pricing');
+  };
+
   const isActive = (path) => location.pathname === path;
 
   return (
@@ -59,6 +64,7 @@ function Navbar() {
         isOpen={drawerOpen}
         user={user}
         onClose={() => setDrawerOpen(false)}
+        onViewPlans={handleViewPlans}
         onLogout={handleLogout}
       />
     </nav>

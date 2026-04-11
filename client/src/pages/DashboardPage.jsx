@@ -43,6 +43,10 @@ function DashboardPage() {
     navigate(`/builder/${projectId}`);
   };
 
+  const handleGenerateProject = () => {
+    navigate('/generate');
+  };
+
   const handleDelete = async (projectId) => {
     if (window.confirm('Are you sure you want to delete this project?')) {
       try {
@@ -67,9 +71,14 @@ function DashboardPage() {
     <div className="dashboard">
       <div className="dashboard-header">
         <h1 className="dashboard-title">My Projects</h1>
-        <button onClick={handleNewProject} className="dashboard-new-btn">
-          + New Project
-        </button>
+        <div className="dashboard-actions">
+          <button onClick={handleGenerateProject} className="dashboard-generate-btn">
+            Generate Project
+          </button>
+          <button onClick={handleNewProject} className="dashboard-new-btn">
+            + New Project
+          </button>
+        </div>
       </div>
 
       <div className="dashboard-grid">
@@ -88,6 +97,9 @@ function DashboardPage() {
           <p className="dashboard-empty-subtitle">
             No projects yet. Create one to get started!
           </p>
+          <button onClick={handleGenerateProject} className="dashboard-generate-btn">
+            Generate Project
+          </button>
           <button onClick={handleNewProject} className="dashboard-new-btn">
             Create First Project
           </button>

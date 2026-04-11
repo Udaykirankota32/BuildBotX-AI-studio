@@ -17,12 +17,21 @@
   box-sizing: border-box;
 }
 
+html,
+body,
+#root {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
 body {
   font-family: "Roboto", sans-serif;
   font-size: 16px;
   color: var(--text-light);
   background: radial-gradient(circle at top, #35206f 0%, var(--bg-deep) 45%, #05030a 100%);
   line-height: 1.6;
+  overflow: hidden;
 }
 
 a {
@@ -43,7 +52,8 @@ button {
 }
 
 .app-shell {
-  min-height: 100vh;
+  width: 100vw;
+  height: 100vh;
   display: flex;
   flex-direction: column;
 }
@@ -53,6 +63,8 @@ button {
   display: flex;
   flex-direction: column;
   min-height: 0;
+  width: 100vw;
+  height: 100vh;
   background: linear-gradient(135deg, #140d2e 0%, #090612 70%);
 }
 

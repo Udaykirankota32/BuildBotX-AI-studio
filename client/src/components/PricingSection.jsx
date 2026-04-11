@@ -25,11 +25,11 @@ const PLANS = [
   },
 ];
 
-function PricingSection() {
+function PricingSection({ currentPlan = 'Free' }) {
   const [yearly, setYearly] = useState(false);
 
   return (
-    <section className="pricing-section">
+    <section className="pricing-section" id="pricing-section">
       <div className="pricing-header">
         <h2 className="pricing-title">Simple Pricing for Every Builder</h2>
         <p className="pricing-subtitle">Start free and scale when your ideas grow.</p>
@@ -56,9 +56,10 @@ function PricingSection() {
           return (
             <article
               key={plan.name}
-              className={`pricing-card ${plan.featured ? 'featured' : ''}`}
+              className={`pricing-card ${plan.featured ? 'featured' : ''} ${currentPlan === plan.name ? 'current-plan' : ''}`}
             >
               {plan.featured && <span className="pricing-recommended">Recommended</span>}
+              {currentPlan === plan.name && <span className="pricing-current">Current Plan</span>}
               <h3 className="pricing-plan-name">{plan.name}</h3>
               <p className="pricing-price">
                 {price === 0 ? 'Free' : `$${price}`}

@@ -1,21 +1,40 @@
-import { useContext, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useContext, useEffect, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import FeatureCard from '../components/FeatureCard.jsx';
 import PricingSection from '../components/PricingSection.jsx';
 import ProfileDrawer from '../components/ProfileDrawer.jsx';
 import { AuthContext } from '../context/AuthContext.jsx';
 import { ToastContext } from '../context/ToastContext.jsx';
-import { createProject } from '../services/projectService.js';
 import { logout as logoutAPI } from '../services/authService.js';
 import '../styles/landing.css';
 import '../styles/pricing.css';
 
 function LandingPage() {
   const navigate = useNavigate();
+  const location = useLocation();
   const { user, logout } = useContext(AuthContext);
   const { showToast } = useContext(ToastContext);
   const [prompt, setPrompt] = useState('');
   const [drawerOpen, setDrawerOpen] = useState(false);
+
+  useEffect(() => {
+    if (location.state?.scrollToPricing) {
+      document.getElementById('pricing-section')?.scrollIntoView({ behavior: 'smooth' });
+      window.history.replaceState({}, document.title, window.location.pathname);
+    }
+  }, [location.state]);
+
+  const handleViewPlans = () => {
+    const pricingSection = document.getElementById('pricing-section');
+    if (location.pathname === '/' && pricingSection) {
+      pricingSection.scrollIntoView({ behavior: 'smooth' });
+      setDrawerOpen(false);
+      return;
+    }
+
+    setDrawerOpen(false);
+    navigate('/pricing');
+  };
 
   const handleStartBuilding = async () => {
     const trimmed = prompt.trim();
@@ -28,10 +47,8 @@ function LandingPage() {
     }
 
     try {
-      const title = trimmed.length > 30 ? `${trimmed.slice(0, 30)}...` : trimmed;
-      const project = await createProject(title);
       setPrompt('');
-      navigate(`/builder/${project._id}`, { state: { initialPrompt: trimmed } });
+      navigate('/generate', { state: { initialPrompt: trimmed } });
     } catch (error) {
       showToast('Failed to create project', 'error');
     }
@@ -89,6 +106,7 @@ function LandingPage() {
         isOpen={drawerOpen}
         user={user}
         onClose={() => setDrawerOpen(false)}
+        onViewPlans={handleViewPlans}
         onLogout={handleLogout}
       />
 
@@ -113,7 +131,7 @@ function LandingPage() {
               className="landing-prompt-input"
             />
             <button onClick={handleStartBuilding} className="landing-prompt-btn">
-              Generate App
+              Generate Project
             </button>
           </div>
 
@@ -160,7 +178,7 @@ function LandingPage() {
         </div>
       </section>
 
-      <PricingSection />
+      <PricingSection currentPlan={user?.subscriptionPlan || 'Free'} />
 
       <footer className="landing-footer">
         <div className="landing-footer-content">

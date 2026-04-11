@@ -1,9 +1,12 @@
 /* Landing Page - Dark Hero Theme (inspired by Bolt.new) */
 
 .landing-page {
-  min-height: 100vh;
+  width: 100vw;
+  height: 100vh;
   display: flex;
   flex-direction: column;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 /* === Navigation === */
@@ -277,6 +280,7 @@
 /* === Features Section (Light) === */
 .landing-features {
   padding: 96px 48px;
+  width: 100%;
   max-width: 1040px;
   margin: 0 auto;
   text-align: center;
@@ -359,6 +363,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  width: 100%;
   max-width: 1040px;
   margin: 0 auto;
 }

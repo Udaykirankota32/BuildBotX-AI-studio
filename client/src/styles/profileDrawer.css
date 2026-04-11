@@ -120,11 +120,18 @@
   gap: 10px;
 }
 
+.profile-drawer-view-plans,
 .profile-drawer-settings,
 .profile-drawer-logout {
   border-radius: 10px;
   padding: 11px 12px;
   font-weight: 600;
+}
+
+.profile-drawer-view-plans {
+  border: 1px solid rgba(201, 162, 39, 0.55);
+  background: linear-gradient(135deg, #c9a227 0%, #8a6e1b 100%);
+  color: #1a1306;
 }
 
 .profile-drawer-settings {

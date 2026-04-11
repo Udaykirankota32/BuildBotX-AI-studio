@@ -6,6 +6,7 @@ import LoginPage from './pages/LoginPage.jsx';
 import SignupPage from './pages/SignupPage.jsx';
 import DashboardPage from './pages/DashboardPage.jsx';
 import BuilderPage from './pages/BuilderPage.jsx';
+import CodeGeneratorPage from './pages/CodeGeneratorPage.jsx';
 import Navbar from './components/Navbar.jsx';
 import ProtectedRoute from './components/ProtectedRoute.jsx';
 
@@ -25,6 +26,7 @@ function App() {
       <Route path="/" element={<LandingPage />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/signup" element={<SignupPage />} />
+      <Route path="/pricing" element={<Navigate to="/" state={{ scrollToPricing: true }} replace />} />
 
       <Route
         path="/dashboard"
@@ -32,6 +34,16 @@ function App() {
           <ProtectedRoute>
             <Navbar />
             <DashboardPage />
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/generate"
+        element={
+          <ProtectedRoute>
+            <Navbar />
+            <CodeGeneratorPage />
           </ProtectedRoute>
         }
       />

@@ -3,7 +3,6 @@ import { useNavigate, Navigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext.jsx';
 import { ToastContext } from '../context/ToastContext.jsx';
 import { register, emailLogin, validateEmail } from '../services/authService.js';
-import { createProject } from '../services/projectService.js';
 import AuthPage from '../components/AuthPage.jsx';
 import '../styles/login.css';
 
@@ -64,9 +63,8 @@ function LoginPage({ initialSignUp = false }) {
 
       const pendingPrompt = localStorage.getItem('bbx_pending_prompt');
       if (pendingPrompt) {
-        const project = await createProject('Quick Start Project');
         localStorage.removeItem('bbx_pending_prompt');
-        navigate(`/builder/${project._id}`, {
+        navigate('/generate', {
           state: { initialPrompt: pendingPrompt },
         });
       } else {

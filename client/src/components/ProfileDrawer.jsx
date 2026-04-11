@@ -1,6 +1,8 @@
 import '../styles/profileDrawer.css';
 
-function ProfileDrawer({ isOpen, user, onClose, onLogout }) {
+function ProfileDrawer({ isOpen, user, onClose, onViewPlans, onLogout }) {
+  const currentPlan = user?.subscriptionPlan || user?.plan || 'Free';
+
   return (
     <>
       <div
@@ -27,10 +29,13 @@ function ProfileDrawer({ isOpen, user, onClose, onLogout }) {
 
         <div className="profile-drawer-plan">
           <span className="profile-drawer-label">Subscription</span>
-          <span className="profile-drawer-badge">Free Plan</span>
+          <span className="profile-drawer-badge">{currentPlan} Plan</span>
         </div>
 
         <div className="profile-drawer-actions">
+          <button className="profile-drawer-view-plans" onClick={onViewPlans}>
+            View Plans
+          </button>
           <button className="profile-drawer-settings">Settings</button>
           <button className="profile-drawer-logout" onClick={onLogout}>
             Logout
