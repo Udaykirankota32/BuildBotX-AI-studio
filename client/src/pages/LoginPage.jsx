@@ -61,14 +61,16 @@ function LoginPage() {
 
   return (
     <div className="login-page">
-      <div className="login-container">        <div className=\"login-logo\">
-          <svg className=\"login-logo-icon\" viewBox=\"0 0 100 100\" xmlns=\"http://www.w3.org/2000/svg\">
-            <circle cx=\"50\" cy=\"50\" r=\"45\" fill=\"none\" stroke=\"currentColor\" strokeWidth=\"8\"/>
-            <circle cx=\"73\" cy=\"28\" r=\"8\" fill=\"currentColor\"/>
-            <path d=\"M 30 65 L 52 35 L 60 50 L 70 35\" fill=\"none\" stroke=\"currentColor\" strokeWidth=\"8\" strokeLinecap=\"round\" strokeLinejoin=\"round\"/>
-            <rect x=\"65\" y=\"42\" width=\"7\" height=\"25\" fill=\"currentColor\" rx=\"2\"/>
+      <div className="login-container">
+        <div className="login-logo">
+          <svg className="login-logo-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="50" cy="50" r="45" fill="none" stroke="currentColor" strokeWidth="8"/>
+            <circle cx="73" cy="28" r="8" fill="currentColor"/>
+            <path d="M 30 65 L 52 35 L 60 50 L 70 35" fill="none" stroke="currentColor" strokeWidth="8" strokeLinecap="round" strokeLinejoin="round"/>
+            <rect x="65" y="42" width="7" height="25" fill="currentColor" rx="2"/>
           </svg>
-        </div>        <h1 className="login-title">BuildBot X</h1>
+        </div>
+        <h1 className="login-title">BuildBot X</h1>
 
         <form className="login-form" onSubmit={handleSubmit}>
           <h2 className="login-form-title">
