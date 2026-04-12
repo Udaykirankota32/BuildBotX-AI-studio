@@ -2,6 +2,7 @@ import { useEffect, useRef, useState, useContext } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { ToastContext } from '../context/ToastContext.jsx';
 import { createProject } from '../services/projectService.js';
+import { updateProject } from '../services/projectService.js';
 import { generateCode } from '../services/generationService.js';
 import CodeEditor from '../components/CodeEditor.jsx';
 import LivePreview from '../components/LivePreview.jsx';
@@ -15,9 +16,11 @@ function CodeGeneratorPage() {
   const didAutoRun = useRef(false);
 
   const [project, setProject] = useState(null);
+  const [projectTitle, setProjectTitle] = useState('Code Generator');
   const [prompt, setPrompt] = useState(initialPrompt);
   const [loadingProject, setLoadingProject] = useState(true);
   const [generating, setGenerating] = useState(false);
+  const [saving, setSaving] = useState(false);
   const [activeTab, setActiveTab] = useState('preview');
   const [generatedCode, setGeneratedCode] = useState('');
   const [error, setError] = useState('');
@@ -27,9 +30,10 @@ function CodeGeneratorPage() {
       try {
         const createdProject = await createProject('Code Generator');
         setProject(createdProject);
+        setProjectTitle(createdProject.title);
       } catch (projectError) {
         showToast('Failed to initialize generator', 'error');
-        navigate('/dashboard');
+        navigate('/projects');
       } finally {
         setLoadingProject(false);
       }
@@ -57,7 +61,9 @@ function CodeGeneratorPage() {
       setGenerating(true);
       setError('');
       const result = await generateCode(project._id, trimmedPrompt);
-      setGeneratedCode(result.code || '');
+      setProject(result.project || project);
+      setProjectTitle((result.project || project)?.title || projectTitle);
+      setGeneratedCode(result.code || result.project?.generatedCode || '');
       setActiveTab('preview');
       showToast('Code generated successfully!', 'success');
     } catch (generationError) {
@@ -66,6 +72,25 @@ function CodeGeneratorPage() {
       showToast(message, 'error');
     } finally {
       setGenerating(false);
+    }
+  };
+
+  const handleSaveProject = async () => {
+    if (!project) return;
+
+    try {
+      setSaving(true);
+      const updated = await updateProject(project._id, {
+        title: projectTitle.trim() || 'Code Generator',
+        generatedCode,
+      });
+      setProject(updated);
+      setProjectTitle(updated.title);
+      showToast('Project saved', 'success');
+    } catch {
+      showToast('Failed to save project', 'error');
+    } finally {
+      setSaving(false);
     }
   };
 
@@ -120,6 +145,19 @@ function CodeGeneratorPage() {
             </p>
           </div>
 
+          <div className="code-generator-title-row">
+            <label className="code-generator-label" htmlFor="project-title">
+              Project name
+            </label>
+            <input
+              id="project-title"
+              className="code-generator-title-input"
+              value={projectTitle}
+              onChange={(e) => setProjectTitle(e.target.value)}
+              placeholder="Untitled Project"
+            />
+          </div>
+
           <label className="code-generator-label" htmlFor="generator-prompt">
             Project prompt
           </label>
@@ -142,6 +180,9 @@ function CodeGeneratorPage() {
               disabled={generating}
             >
               {generating ? 'Generating...' : 'Generate Code'}
+            </button>
+            <button className="code-generator-secondary" onClick={handleSaveProject} disabled={saving || !project}>
+              {saving ? 'Saving...' : 'Save Project'}
             </button>
             <button className="code-generator-secondary" onClick={handleCopy} disabled={!generatedCode}>
               Copy Code

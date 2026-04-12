@@ -1,31 +1,43 @@
 import { createContext, useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
+import '../styles/toast.css';
 
 export const ToastContext = createContext(null);
 
 function ToastProvider({ children }) {
-  const [toast, setToast] = useState(null);
+  const [toasts, setToasts] = useState([]);
 
   useEffect(() => {
-    if (toast) {
+    if (toasts.length > 0) {
       const timerId = setTimeout(() => {
-        setToast(null);
-      }, 3000);
+        setToasts((prevToasts) => prevToasts.slice(1));
+      }, 4000);
 
       return () => clearTimeout(timerId);
     }
-  }, [toast]);
+  }, [toasts]);
 
   const showToast = (message, type = 'success') => {
-    setToast({ message, type });
+    const id = Date.now();
+    setToasts((prevToasts) => [...prevToasts, { id, message, type }]);
   };
 
   return (
-    <ToastContext.Provider value={{ toast, showToast }}>
+    <ToastContext.Provider value={{ toasts, showToast }}>
       {children}
-      {toast && (
-        <div className={`toast-notification toast-${toast.type}`}>
-          {toast.message}
-        </div>
+      {createPortal(
+        <div className="toast-container">
+          {toasts.map((toast) => (
+            <div
+              key={toast.id}
+              className={`toast-notification toast-${toast.type}`}
+              role="alert"
+            >
+              {toast.message}
+            </div>
+          ))}
+        </div>,
+        document.body
       )}
     </ToastContext.Provider>
   );

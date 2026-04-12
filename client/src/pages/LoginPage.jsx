@@ -2,7 +2,9 @@ import { useState, useContext } from 'react';
 import { useNavigate, Navigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext.jsx';
 import { ToastContext } from '../context/ToastContext.jsx';
-import { register, emailLogin, validateEmail } from '../services/authService.js';
+import { register, emailLogin } from '../services/authService.js';
+import { validateField, validateForm, hasFormErrors } from '../services/validationService.js';
+import FormInput from '../components/FormInput.jsx';
 import AuthPage from '../components/AuthPage.jsx';
 import '../styles/login.css';
 
@@ -17,6 +19,7 @@ function LoginPage({ initialSignUp = false }) {
     email: '',
     password: '',
   });
+  const [fieldErrors, setFieldErrors] = useState({});
   const [loading, setLoading] = useState(false);
 
   if (user) return <Navigate to="/" />;
@@ -24,23 +27,28 @@ function LoginPage({ initialSignUp = false }) {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
+    
+    // Clear error when user starts typing
+    if (fieldErrors[name]) {
+      setFieldErrors((prev) => ({ ...prev, [name]: '' }));
+    }
+  };
+
+  const handleFieldBlur = (fieldName) => {
+    const error = validateField(fieldName, formData[fieldName] || '');
+    setFieldErrors((prev) => ({ ...prev, [fieldName]: error }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!validateEmail(formData.email)) {
-      showToast('Please enter a valid email address.', 'error');
-      return;
-    }
+    // Validate all fields
+    const fieldsToValidate = isSignUp ? ['name', 'email', 'password'] : ['email', 'password'];
+    const errors = validateForm(formData, fieldsToValidate);
+    
+    setFieldErrors(errors);
 
-    if (formData.password.length < 6) {
-      showToast('Password must be at least 6 characters.', 'error');
-      return;
-    }
-
-    if (isSignUp && !formData.name.trim()) {
-      showToast('Name is required', 'error');
+    if (hasFormErrors(errors)) {
       return;
     }
 
@@ -71,10 +79,16 @@ function LoginPage({ initialSignUp = false }) {
         navigate('/');
       }
     } catch (error) {
-      showToast(
-        error.response?.data?.message || 'Something went wrong',
-        'error'
-      );
+      const errorMessage = error.response?.data?.message || 'Something went wrong';
+      showToast(errorMessage, 'error');
+      
+      // Set field-specific errors if available
+      if (error.response?.data?.field) {
+        setFieldErrors((prev) => ({
+          ...prev,
+          [error.response.data.field]: errorMessage,
+        }));
+      }
     } finally {
       setLoading(false);
     }
@@ -93,40 +107,44 @@ function LoginPage({ initialSignUp = false }) {
             </div>
             <h1 className="login-title">BuildBot X</h1>
 
-            <form className="login-form" onSubmit={handleSubmit}>
+            <form className="login-form" onSubmit={handleSubmit} noValidate>
               <h2 className="login-form-title">
                 {isSignUp ? 'Create Account' : 'Welcome Back'}
               </h2>
 
               {isSignUp && (
-                <input
+                <FormInput
                   type="text"
                   name="name"
                   placeholder="Full Name"
                   value={formData.name}
                   onChange={handleChange}
-                  className="login-input"
+                  onBlur={() => handleFieldBlur('name')}
+                  error={fieldErrors.name}
                   required
                 />
               )}
 
-              <input
+              <FormInput
                 type="email"
                 name="email"
                 placeholder="Email"
                 value={formData.email}
                 onChange={handleChange}
-                className="login-input"
+                onBlur={() => handleFieldBlur('email')}
+                error={fieldErrors.email}
                 required
               />
 
-              <input
+              <FormInput
                 type="password"
                 name="password"
                 placeholder="Password"
                 value={formData.password}
                 onChange={handleChange}
-                className="login-input"
+                onBlur={() => handleFieldBlur('password')}
+                error={fieldErrors.password}
+                helpText={!isSignUp ? '' : 'Minimum 6 characters'}
                 required
               />
 

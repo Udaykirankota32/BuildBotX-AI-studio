@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import FeatureCard from '../components/FeatureCard.jsx';
 import PricingSection from '../components/PricingSection.jsx';
 import ProfileDrawer from '../components/ProfileDrawer.jsx';
+import Footer from '../components/Footer.jsx';
 import { AuthContext } from '../context/AuthContext.jsx';
 import { ToastContext } from '../context/ToastContext.jsx';
 import { logout as logoutAPI } from '../services/authService.js';
@@ -84,6 +85,16 @@ function LandingPage() {
           BuildBot X
         </span>
         {user ? (
+          <div className="landing-nav-center">
+            <button
+              onClick={() => navigate('/projects')}
+              className="landing-nav-projects-btn"
+            >
+              📁 My Projects
+            </button>
+          </div>
+        ) : null}
+        {user ? (
           <div className="landing-user">
             <button className="landing-avatar" onClick={() => setDrawerOpen(true)}>
               {user.name?.charAt(0)?.toUpperCase() || 'U'}
@@ -114,8 +125,8 @@ function LandingPage() {
         <div className="landing-hero-content">
           <span className="landing-badge">BuildBot X ai studio</span>
           <h1 className="landing-hero-title">
-            Build Beautiful Apps
-            <span className="landing-hero-accent"> From a Single Prompt</span>
+            Think It. Prompt It. Launch It
+            <span className="landing-hero-accent"> Powered by AI.</span>
           </h1>
           <p className="landing-hero-subtitle">
             Describe your idea in plain English. Generate complete HTML, CSS, and JavaScript instantly, then refine through chat.
@@ -180,14 +191,7 @@ function LandingPage() {
 
       <PricingSection currentPlan={user?.subscriptionPlan || 'Free'} />
 
-      <footer className="landing-footer">
-        <div className="landing-footer-content">
-          <div className="landing-footer-logo">BuildBot X ai studio</div>
-          <p className="landing-footer-text">
-            &copy; 2026 BuildBot X ai studio. Transform ideas into working code.
-          </p>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }

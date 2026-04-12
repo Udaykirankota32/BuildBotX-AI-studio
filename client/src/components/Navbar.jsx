@@ -46,8 +46,8 @@ function Navbar() {
 
       <div className="navbar-links">
         <Link
-          to="/dashboard"
-          className={`navbar-link ${isActive('/dashboard') ? 'active' : ''}`}
+          to="/projects"
+          className={`navbar-link ${isActive('/projects') ? 'active' : ''}`}
         >
           My Projects
         </Link>

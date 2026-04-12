@@ -4,7 +4,7 @@ import { AuthContext } from './context/AuthContext.jsx';
 import LandingPage from './pages/LandingPage.jsx';
 import LoginPage from './pages/LoginPage.jsx';
 import SignupPage from './pages/SignupPage.jsx';
-import DashboardPage from './pages/DashboardPage.jsx';
+import ProjectsPage from './pages/ProjectsPage.jsx';
 import BuilderPage from './pages/BuilderPage.jsx';
 import CodeGeneratorPage from './pages/CodeGeneratorPage.jsx';
 import Navbar from './components/Navbar.jsx';
@@ -28,12 +28,14 @@ function App() {
       <Route path="/signup" element={<SignupPage />} />
       <Route path="/pricing" element={<Navigate to="/" state={{ scrollToPricing: true }} replace />} />
 
+      <Route path="/dashboard" element={<Navigate to="/projects" replace />} />
+
       <Route
-        path="/dashboard"
+        path="/projects"
         element={
           <ProtectedRoute>
             <Navbar />
-            <DashboardPage />
+            <ProjectsPage />
           </ProtectedRoute>
         }
       />
