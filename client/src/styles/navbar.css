@@ -6,7 +6,6 @@
   align-items: center;
   justify-content: space-between;
   padding: 0 24px;
-  
   border-bottom: 1px solid rgba(201, 162, 39, 0.25);
   background: rgba(8, 5, 18, 0.85);
   backdrop-filter: blur(8px);
@@ -20,13 +19,10 @@
 }
 
 .navbar-brand {
-  font-family: "Bree Serif", serif;
-  font-size: 20px;
-  font-weight: 700;
-  color: #f4eaff;
   display: flex;
   align-items: center;
-  gap: 6px;
+  color: #f4eaff;
+  text-decoration: none;
 }
 
 .navbar-brand-mark {
@@ -104,13 +100,15 @@
   border-color: #e3bc42;
 }
 
-.navbar-logo-icon {
-  width: 24px;
-  height: 24px;
-  color: #c9a227;
-}
-
 @media (max-width: 600px) {
+  .navbar-brand .brand-logo-sub {
+    display: none;
+  }
+
+  .navbar-brand .brand-logo-main {
+    font-size: 18px;
+  }
+
   .navbar-username {
     display: none;
   }

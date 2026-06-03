@@ -27,25 +27,10 @@
 }
 
 .landing-logo {
-  font-family: "Bree Serif", serif;
-  font-size: 22px;
-  font-weight: 700;
-  color: #f8f1ff;
   display: flex;
   align-items: center;
-  gap: 8px;
-}
-
-.landing-logo-icon {
-  width: 28px;
-  height: 28px;
-  color: #c9a227;
-}
-
-.landing-logo-mark {
-  color: #818cf8;
-  font-size: 18px;
-  font-weight: 700;
+  color: #f8f1ff;
+  text-decoration: none;
 }
 
 .landing-nav-right {
@@ -424,6 +409,14 @@
 @media (max-width: 768px) {
   .landing-nav {
     padding: 14px 20px;
+  }
+
+  .landing-logo {
+    max-width: 56vw;
+  }
+
+  .landing-logo .brand-logo-sub {
+    display: none;
   }
 
   .landing-nav-center {

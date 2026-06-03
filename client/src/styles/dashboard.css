@@ -27,7 +27,7 @@
   font-family: "Bree Serif", serif;
   font-size: 30px;
   font-weight: 700;
-  color: #1a1a2e;
+  color: #8A2BE2;
   margin-bottom: 4px;
 }
 
@@ -42,7 +42,7 @@
   padding: 11px 26px;
   border: none;
   border-radius: 10px;
-  background: #6366f1;
+  background: #8A2BE2;
   color: #ffffff;
   box-shadow: 0 4px 14px rgba(99, 102, 241, 0.25);
 }
@@ -146,27 +146,27 @@
   font-weight: 600;
   border: none;
   border-radius: 8px;
-  background: #6366f1;
+  background: #8A2BE2;
   color: #ffffff;
 }
 
 .project-card-open:hover {
-  background: #5558e6;
+  background: #7424bf;
 }
 
 .project-card-delete {
   padding: 9px 16px;
   font-size: 13px;
   font-weight: 500;
-  border: 1px solid #e8e7f0;
+  border: 1px solid #8A2BE2;
   border-radius: 8px;
   background: #ffffff;
-  color: #dc2626;
+  color: #8A2BE2;
 }
 
 .project-card-delete:hover {
-  background: #fef2f2;
-  border-color: #dc2626;
+  background: #f6ecff;
+  border-color: #7424bf;
 }
 
 /* Empty state */

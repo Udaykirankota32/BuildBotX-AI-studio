@@ -1,11 +1,4 @@
-// ============================================
-// error.middleware.js - Global Error Handling
-// ============================================
-// Catches errors from anywhere in the app and
-// sends a clean error response to the client.
-//
-// Express 5.x automatically catches async errors,
-// so we don't need express-async-errors!
+
 //
 // Status codes we use:
 //   404 = Not Found (route doesn't exist)
@@ -23,16 +16,13 @@ export const notFoundHandler = (req, res, next) => {
   });
 };
 
-/**
- * Global Error Handler - Catches all unhandled errors.
- *
- * Express knows this is an error handler because
- * it has 4 parameters: (err, req, res, next)
- */
+
 export const errorHandler = (err, req, res, next) => {
   console.error('Error:', err.message);
 
-  res.status(500).json({
+  const statusCode = err.statusCode || err.status || 500;
+
+  res.status(statusCode).json({
     success: false,
     message: err.message || 'Something went wrong on the server.',
   });

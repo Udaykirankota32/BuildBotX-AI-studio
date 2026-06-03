@@ -1,5 +1,6 @@
 import { useState, useContext } from 'react';
 import { ToastContext } from '../context/ToastContext.jsx';
+import BrandLogo from './BrandLogo.jsx';
 import '../styles/footer.css';
 
 function Footer() {
@@ -42,13 +43,7 @@ function Footer() {
         {/* Brand Section */}
         <div className="footer-section footer-brand">
           <div className="footer-logo">
-            <svg className="footer-logo-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-              <circle cx="50" cy="50" r="45" fill="none" stroke="currentColor" strokeWidth="8"/>
-              <circle cx="73" cy="28" r="8" fill="currentColor"/>
-              <path d="M 30 65 L 52 35 L 60 50 L 70 35" fill="none" stroke="currentColor" strokeWidth="8" strokeLinecap="round" strokeLinejoin="round"/>
-              <rect x="65" y="42" width="7" height="25" fill="currentColor" rx="2"/>
-            </svg>
-            <span>BuildBot X</span>
+            <BrandLogo showStudio />
           </div>
           <p className="footer-tagline">Build smarter with AI. Design, generate, preview, and ship your site from one creative workspace.</p>
           <div className="footer-socials">
@@ -138,7 +133,7 @@ function Footer() {
       {/* Footer Bottom - Legal & Copyright */}
       <div className="footer-bottom">
         <div className="footer-bottom-left">
-          <p>&copy; {currentYear} BuildBot X. All rights reserved.</p>
+          <p>&copy; {currentYear} BuildBot-X. All rights reserved.</p>
         </div>
         <div className="footer-bottom-right">
           <a href="/">Privacy Policy</a>

@@ -1,8 +1,11 @@
 .code-generator-page {
   width: 100vw;
   height: calc(100vh - 56px);
-  overflow: hidden;
+  overflow:auto;
   background: linear-gradient(135deg, #120b27 0%, #090612 55%, #040208 100%);
+  display:flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .code-generator-shell {
@@ -18,8 +21,8 @@
 .code-generator-output-panel {
   min-height: 0;
   border-radius: 18px;
-  background: rgba(255, 255, 255, 0.07);
-  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(138, 43, 226, 0.12);
+  border: 1px solid rgba(138, 43, 226, 0.35);
   backdrop-filter: blur(10px);
   box-shadow: 0 16px 38px rgba(6, 3, 14, 0.45);
 }
@@ -29,6 +32,30 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
+}
+
+.code-generator-topbar {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.code-generator-title {
+  flex: 1;
+  min-width: 0;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(12, 8, 26, 0.72);
+  color: #f6f1ff;
+  padding: 12px 14px;
+  font: inherit;
+  outline: none;
+}
+
+.code-generator-title:focus {
+  border-color: rgba(201, 162, 39, 0.7);
+  box-shadow: 0 0 0 3px rgba(201, 162, 39, 0.16);
 }
 
 .code-generator-header h1 {
@@ -60,6 +87,28 @@
   font-size: 14px;
 }
 
+.code-generator-title-row {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.code-generator-title-input {
+  width: 100%;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(12, 8, 26, 0.72);
+  color: #f6f1ff;
+  padding: 12px 14px;
+  font: inherit;
+  outline: none;
+}
+
+.code-generator-title-input:focus {
+  border-color: rgba(201, 162, 39, 0.7);
+  box-shadow: 0 0 0 3px rgba(201, 162, 39, 0.16);
+}
+
 .code-generator-textarea {
   flex: 1;
   min-height: 220px;
@@ -88,6 +137,8 @@
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .code-generator-button,
@@ -95,6 +146,7 @@
   border-radius: 12px;
   padding: 12px 14px;
   font-weight: 700;
+  min-height: 46px;
 }
 
 .code-generator-button {
@@ -157,8 +209,8 @@
 }
 
 .code-generator-tab.active {
-  background: linear-gradient(135deg, #c9a227 0%, #8a6e1b 100%);
-  color: #1a1306;
+  background: #8A2BE2;
+  color: #ffffff;
 }
 
 .code-generator-output {
@@ -170,6 +222,11 @@
 .code-generator-output .code-editor-container,
 .code-generator-output .preview-iframe {
   height: 100%;
+}
+
+.code-editor-textarea {
+  height: 100%;
+  overflow: auto;
 }
 
 @media (max-width: 980px) {

@@ -1,9 +1,10 @@
 import { useContext, useEffect, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import FeatureCard from '../components/FeatureCard.jsx';
 import PricingSection from '../components/PricingSection.jsx';
 import ProfileDrawer from '../components/ProfileDrawer.jsx';
 import Footer from '../components/Footer.jsx';
+import BrandLogo from '../components/BrandLogo.jsx';
 import { AuthContext } from '../context/AuthContext.jsx';
 import { ToastContext } from '../context/ToastContext.jsx';
 import { logout as logoutAPI } from '../services/authService.js';
@@ -75,15 +76,9 @@ function LandingPage() {
   return (
     <div className="landing-page">
       <nav className="landing-nav">
-        <span className="landing-logo">
-          <svg className="landing-logo-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="50" cy="50" r="45" fill="none" stroke="white" strokeWidth="8"/>
-            <circle cx="73" cy="28" r="8" fill="white"/>
-            <path d="M 30 65 L 52 35 L 60 50 L 70 35" fill="none" stroke="white" strokeWidth="8" strokeLinecap="round" strokeLinejoin="round"/>
-            <rect x="65" y="42" width="7" height="25" fill="white" rx="2"/>
-          </svg>
-          BuildBot X
-        </span>
+        <Link to="/" className="landing-logo">
+          <BrandLogo showStudio />
+        </Link>
         {user ? (
           <div className="landing-nav-center">
             <button
@@ -123,7 +118,7 @@ function LandingPage() {
 
       <section className="landing-hero">
         <div className="landing-hero-content">
-          <span className="landing-badge">BuildBot X ai studio</span>
+          <span className="landing-badge">BuildBot-X AI Studio</span>
           <h1 className="landing-hero-title">
             Think It. Prompt It. Launch It
             <span className="landing-hero-accent"> Powered by AI.</span>

@@ -2,10 +2,12 @@ import mongoose from 'mongoose';
 
 const connectDB = async () => {
   try {
-    const mongoURI = process.env.MONGODB_URI;
+    const mongoURI = process.env.MONGO_URI || process.env.MONGODB_URI;
 
     if (!mongoURI) {
-      throw new Error('MONGODB_URI is not defined in your .env file');
+      throw new Error(
+        'Mongo URI is missing. Set MONGO_URI (preferred) or MONGODB_URI in environment variables.'
+      );
     }
 
     // Mongoose 9.x handles connection options automatically

@@ -1,0 +1,131 @@
+.brand-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: #edf2ff;
+}
+
+.brand-logo-icon {
+  width: 44px;
+  height: 44px;
+  filter: drop-shadow(0 0 10px rgba(121, 154, 255, 0.2));
+  flex-shrink: 0;
+}
+
+.brand-logo-divider {
+  width: 2px;
+  height: 38px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, #7398ff 0%, #3f65ff 100%);
+  box-shadow: 0 0 16px rgba(90, 124, 255, 0.75);
+  flex-shrink: 0;
+}
+
+.brand-logo-wordmark {
+  display: flex;
+  flex-direction: column;
+  line-height: 1;
+}
+
+.brand-logo-main {
+  font-family: "Bree Serif", serif;
+  font-size: 30px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  color: #f3f6ff;
+  text-shadow: 0 4px 20px rgba(48, 56, 88, 0.55);
+}
+
+.brand-logo-x {
+  color: #7f5bff;
+  text-shadow: 0 0 18px rgba(95, 76, 255, 0.8);
+}
+
+.brand-logo-sub {
+  margin-top: 5px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 7px;
+  color: #6f59ff;
+  text-transform: uppercase;
+}
+
+.navbar-brand .brand-logo-icon,
+.landing-logo .brand-logo-icon,
+.footer-logo .brand-logo-icon {
+  width: 36px;
+  height: 36px;
+}
+
+.navbar-brand .brand-logo-divider,
+.landing-logo .brand-logo-divider,
+.footer-logo .brand-logo-divider {
+  height: 30px;
+}
+
+.navbar-brand .brand-logo-main,
+.footer-logo .brand-logo-main {
+  font-size: 24px;
+}
+
+.navbar-brand .brand-logo-sub,
+.footer-logo .brand-logo-sub {
+  font-size: 9px;
+  letter-spacing: 4.5px;
+}
+
+.login-logo .brand-logo-icon {
+  width: 52px;
+  height: 52px;
+}
+
+.login-logo .brand-logo-divider {
+  height: 42px;
+}
+
+.login-logo .brand-logo-main {
+  font-size: 34px;
+}
+
+.login-logo .brand-logo-sub {
+  font-size: 11px;
+  letter-spacing: 6px;
+}
+
+@media (max-width: 768px) {
+  .brand-logo-icon {
+    width: 36px;
+    height: 36px;
+  }
+
+  .brand-logo-divider {
+    height: 30px;
+  }
+
+  .brand-logo-main {
+    font-size: 24px;
+  }
+
+  .brand-logo-sub {
+    font-size: 9px;
+    letter-spacing: 3.8px;
+  }
+}
+
+@media (max-width: 520px) {
+  .brand-logo {
+    gap: 8px;
+  }
+
+  .brand-logo-divider {
+    width: 1.5px;
+  }
+
+  .brand-logo-main {
+    font-size: 20px;
+  }
+
+  .brand-logo-sub {
+    letter-spacing: 2.8px;
+  }
+}

@@ -164,22 +164,7 @@
 .login-logo {
   display: flex;
   justify-content: center;
-  margin-bottom: 20px;
-}
-
-.login-logo-icon {
-  width: 48px;
-  height: 48px;
-  color: #c9a227;
-}
-
-.login-title {
-  font-family: "Bree Serif", serif;
-  font-size: 28px;
-  font-weight: 700;
-  color: #f9f2ff;
   margin-bottom: 32px;
-  text-align: center;
 }
 
 .login-form-title {

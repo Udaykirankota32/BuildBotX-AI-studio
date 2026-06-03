@@ -15,7 +15,7 @@
   display: flex;
   flex-direction: column;
   border-right: 1px solid #e8e7f0;
-  background: #ffffff;
+  background: rgba(138, 43, 226, 0.1);
   flex-shrink: 0;
 }
 
@@ -284,12 +284,12 @@
 }
 
 .builder-tab:hover {
-  color: #6366f1;
-  background: #f3f2fd;
+  color: #8A2BE2;
+  background: rgba(138, 43, 226, 0.12);
 }
 
 .builder-tab.active {
-  background: #6366f1;
+  background: #8A2BE2;
   color: #ffffff;
 }
 
